@@ -1,27 +1,27 @@
 let modInfo = {
-	name: "The ??? Tree",
-	author: "nobody",
-	pointsName: "points",
+	name: "The Factory Clicker Tree",
+	author: "mixmstr08",
+	pointsName: "factory points",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
-	discordLink: "",
+	discordLiClicker: "",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
-	offlineLimit: 1,  // In hours
+	offlineLimit: 24,  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "1.0",
+	name: "Alpha",
 }
 
-let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+let Alphalog = `<h1>Changelog:</h1><br>
+	<h3>v1.0 - Alpha</h3><br>
+		- Added the beginning.<br>
+		- Added stuff`;
 
-let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
+let winText = "Congratulations! You have reached the end and beaten this game, but for now..."
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -42,12 +42,42 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
-	return gain
+	if(hasUpgrade('m', 11)) gain = gain.gain.mul(2);
+	if(player.player.l && player.player.l.unlocked){
+		gain = gain.mul(player.l.points.mul(0.1).add(1));
+	}
+	if(player.pr && player.pr.unlocked){
+		gain = gain.mul(player.pr.points.add(1).pow(2));
+	}
+	if(player.s && player.s.unlocked){
+		gain = gain.mul(player.s.satellites.add(1).pow(1.5));
+	}
+	if(player.q && player.q.unlocked){
+		gain = gain.mul(player.q.points.mul(0.05).add(1));
+	}
+	if(player.c && player.c.unlocked){
+		gain = gain.mul(player.c.points.add(1).pow(5));
+	}
+
+
+	return gain;
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
-function addedPlayerData() { return {
-}}
+function startPlayerBase(){
+	return {
+		points: new Decimal(0),
+		copperOre: new Decimal(0),
+		ironOre: new Decimal(0),
+		coal: new Decimal(0),
+		copperWire: new Decimal(0),
+		ironBar: new Decimal(0),
+		steel: new Decimal(0),
+		gear: new Decimal(0),
+		motor: new Decimal(0),
+		electronicBoard: new Decimal(0)
+	}
+}
 
 // Display extra things at the top of the page
 var displayThings = [

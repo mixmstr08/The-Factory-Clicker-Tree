@@ -3,9 +3,12 @@ var layoutInfo = {
     startNavTab: "tree-tab",
 	showTree: true,
 
-    treeLayout: ""
-
-    
+    treeLayout: [
+        ["m", "f"],
+        ["p", "i"],
+        ["rereorg "], 
+        ["memegacorp"]
+    ],
 }
 
 
